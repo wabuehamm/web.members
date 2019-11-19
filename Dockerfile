@@ -8,7 +8,8 @@ RUN apk update && \
     apk add php7-pecl-xdebug && \
     apk add wait4ports && \
     apk add mariadb-client && \
-    apk add curl
+    apk add curl && \
+    apk add python3
 
 # Remap apache to port 8443
 
