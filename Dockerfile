@@ -10,7 +10,7 @@ RUN apk update && \
     apk add mariadb-client && \
     apk add curl && \
     apk add python3 py3-mysqlclient && \
-    apk add tar bzip2
+    apk add tar bzip2 unzip
 
 # Remap apache to port 8443
 
