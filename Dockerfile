@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.13
 
 # Install required packages
 
@@ -26,7 +26,7 @@ RUN sed -i -re "s/^#LoadModule rewrite_module(.*)/LoadModule rewrite_module\1/gi
 
 # Enable xdebug
 
-RUN rm /etc/php7/conf.d/xdebug.ini
+RUN rm /etc/php7/conf.d/*xdebug*
 COPY xdebug.ini /etc/php7/xdebug.ini
 COPY xdebugctl.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/xdebugctl.sh
