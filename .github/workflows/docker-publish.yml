@@ -34,10 +34,7 @@ jobs:
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@d6a3abf1bdea83574e28d40543793018b6035605
-        with:
-          cosign-release: 'v1.9.0'
-
+        uses: sigstore/cosign-installer@main
 
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
@@ -83,8 +80,6 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
-        env:
-          COSIGN_EXPERIMENTAL: "true"
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
