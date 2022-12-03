@@ -8,6 +8,10 @@ openssl req -x509 -out /etc/ssl/apache2/server.pem -keyout /etc/ssl/apache2/serv
     -newkey rsa:2048 -nodes -sha256 \
     -subj '/CN=web' -extensions EXT -config config
 
+echo "Fixing permissions"
+
+chown -R apache:apache /srv/elgg_data
+
 echo "Starting web service"
 
 /usr/sbin/httpd
