@@ -9,9 +9,9 @@ ACTION=$1
 
 if [ "X${ACTION}X" == "XonX" ]
 then
-    cp /etc/php7/xdebug.ini /etc/php7/conf.d/xdebug.ini
+    cp /etc/php83/xdebug.ini /etc/php83/conf.d/xdebug.ini
     apachectl graceful
 else
-    rm /etc/php7/conf.d/xdebug.ini
+    rm /etc/php83/conf.d/xdebug.ini
     apachectl graceful
 fi

@@ -1,16 +1,20 @@
-FROM alpine:3.15
+FROM alpine:3.20
 
 # Install required packages
 
 RUN apk update && \
-    apk add apache2-ssl apache2-ctl && \
-    apk add php7 php7-apache2 php7-gd php7-pdo_mysql php7-json php7-xml php7-mbstring php7-session php7-curl php7-simplexml php7-ctype php7-dom php7-iconv php7-xmlwriter php7-tokenizer php7-fileinfo php7-xmlreader php7-zip && \
-    apk add php7-pecl-xdebug && \
-    apk add wait4ports && \
-    apk add mariadb-client && \
-    apk add curl && \
-    apk add python3 py3-mysqlclient && \
-    apk add tar bzip2 unzip
+    apk add \
+    apache2-ssl apache2-ctl \
+    php83 php83-apache2 \
+    php83-ctype php83-curl php83-dom php83-fileinfo php83-gd php83-iconv php83-intl php83-json php83-mbstring php83-pdo_mysql php83-session php83-simplexml php83-tokenizer php83-xml php83-xmlreader php83-xmlwriter php83-zip \
+    php83-pecl-xdebug \
+    icu-data-full \
+    composer \
+    wait4ports \
+    mariadb-client \
+    curl \
+    python3 py3-mysqlclient \
+    tar bzip2 unzip
 
 # Remap apache to port 8443
 
@@ -26,10 +30,14 @@ RUN sed -i -re "s/^#LoadModule rewrite_module(.*)/LoadModule rewrite_module\1/gi
 
 # Enable xdebug
 
-RUN rm /etc/php7/conf.d/*xdebug*
-COPY xdebug.ini /etc/php7/xdebug.ini
+RUN rm /etc/php83/conf.d/*xdebug*
+COPY xdebug.ini /etc/php83/xdebug.ini
 COPY xdebugctl.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/xdebugctl.sh
+
+# Copy php settings modifications
+
+COPY zwabue.ini /etc/php83/conf.d/zwabue.ini
 
 # Install entrypoint script
 
